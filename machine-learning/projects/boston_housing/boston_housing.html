@@ -12159,9 +12159,9 @@ Standard deviation of prices: $165,171.13
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
-<p>The benefit of splitting the dataset into training and test subsets is that it allows for a way to test the performance of the model on 'new' data. The model is trained using the 'training' dataset, and its performance is evaluated using the 'testing' dataset which the model has never encountered.</p>
-<p>The benefit to splitting the dataset in some ratio that is not 50-50, is that using a greater portion of the dataset to train yields a better model than if a smaller portion of the dataset were used. However, if the training set makes up too large a proportion, say &gt;90%, then the trained model may be overfit since it has seen most of the dataset, and it will perform poorly on new data.</p>
-<p>If, on the other hand, the model is trained with only a small portion of the dataset, say &lt; 10%, then the learning algorithm has too little data to work with to train the model. This will lead to a model that is underfit. When such a model is evaluated for performance, it will perform poorly (show large variance in performance) on new data.</p>
+<p>A couple of benefits of splitting the dataset into training and testing subsets are listed below</p>
+<p>First, splitting the dataset allows for a way to test the performance of the model on a 'new', or independent dataset. The model is trained using the 'training' dataset, and its performance is evaluated using the 'testing' dataset which the model has never encountered.</p>
+<p>Second, by splitting the dataset we are not using <em>all</em> of the data to train the model which serves as a check against overfitting.</p>
 
 </div>
 </div>
@@ -14590,8 +14590,8 @@ iIg29j/g9eWnWII0mAAAAABJRU5ErkJggg==
 <p><strong>Answer: </strong></p>
 <p>With maximum depth of <strong>1</strong>, the model suffers from <strong>high bias</strong>.</p>
 <p>With a maximum depth of <strong>10</strong>, the model suffers from <strong>high variance</strong>.</p>
-<p>When maximum depth is <strong>1</strong>, the validation score is ~0.4, which is well away from the average validation score of ~0.7.</p>
-<p>When maximum depth is <strong>10</strong>, the validation score curve suggests high variance because the shaded area is much wider at max depth of 10 than at lower max depth values. In other words, as max depth increases, the uncertainty band grows wider, and therefore suggests the model performance will show high variance.</p>
+<p>When maximum depth is <strong>1</strong>, the training score and validation score are both low, well away from 1.0, which is an indication of a high bias model.</p>
+<p>A high variance model is indicated when the training score and variance deviate as the model complexity grows. In the Decision Tree Regressor Complexity Performance plot, the training score and the validation score curves deviate or trend further apart as the maximum depth increases. At maximum depth of <strong>10</strong>, the validation score curve is much further away from the training score curve suggesting a model that suffers from high variance.</p>
 
 </div>
 </div>
@@ -14721,7 +14721,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="c"># TODO: Import &#39;make_scorer&#39;, &#39;DecisionTreeRegressor&#39;, and &#39;GridSearchCV&#39;</span>
@@ -14743,7 +14743,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
     <span class="n">regressor</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="c"># TODO: Create a dictionary for the parameter &#39;max_depth&#39; with a range from 1 to 10</span>
-    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]}</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;max_depth&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)}</span>
 
     <span class="c"># TODO: Transform &#39;performance_metric&#39; into a scoring function using &#39;make_scorer&#39; </span>
     <span class="n">scoring_fnc</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">performance_metric</span><span class="p">,</span> <span class="n">greater_is_better</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">needs_proba</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> \
@@ -14826,7 +14826,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong> Hint: </strong> The answer comes from the output of the code snipped above.</p>
-<p><strong>Answer: </strong> The optimal model has max_depth of 4.</p>
+<p><strong>Answer: </strong> The optimal model has max_depth of 4. In question 6 I selected the max_depth value as 3 based on a visual closeness of the training and validation score curves. The optimal max_depth of 4 is higher than that selected in question 6, and it makes sense because at max_depth of 3, the model has still too much bias (something that I missed when I answered question 6). With max_depth = 4, the bias is lower since the training and validation scores are closer to 1.0 than for max_depth = 3.</p>
 
 </div>
 </div>
